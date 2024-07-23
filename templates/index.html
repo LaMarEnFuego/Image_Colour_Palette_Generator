@@ -28,25 +28,33 @@
       }
     </style>
   </head>
-  <body>
-    <div>
-      <h1>Upload an Image</h1>
-      <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
-        <button type="submit">Upload</button>
-      </form>
-      {% if top_colors %}
-        <h2>Top Colors</h2>
-        <div>
-          {% for color, rgb in top_colors %}
-            <div class="color-box" style="background-color: {{ color }};"></div>
-            <div class="color-info">
-              <span>{{ color }}</span>
-              <button onclick="copyToClipboard('{{ color }}')">Copy</button>
+    <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h1 class="text-center mb-4">Welcome!</h1>
+          <h2 class="text-center mb-4">This website will analyse an image and tell you the top 10 colors it contains.</h2>
+          <h3 class="text-center mb-4">Please upload an image below:</h3>
+          <form method="post" enctype="multipart/form-data" class="text-center mb-4">
+            <div class="form-group">
+              <input type="file" name="file" accept="image/*" class="form-control-file">
             </div>
-          {% endfor %}
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+          {% if top_colors %}
+            <h2 class="text-center mb-4">Top Colors</h2>
+            <div>
+              {% for color, rgb in top_colors %}
+                <div class="color-info">
+                  <div class="color-box" style="background-color: {{ color }};"></div>
+                  <span>{{ color }}</span>
+                  <button class="btn btn-secondary" onclick="copyToClipboard('{{ color }}')">Copy</button>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
-      {% endif %}
+      </div>
     </div>
     <script>
       function copyToClipboard(text) {
@@ -57,5 +65,9 @@
         });
       }
     </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
