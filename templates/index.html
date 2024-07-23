@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Top Colors in Image</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .color-box {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+      }
+      .color-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+      .color-info span {
+        font-size: 1.2em;
+      }
+      .color-info button {
+        padding: 5px 10px;
+        font-size: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Upload an Image</h1>
+      <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <button type="submit">Upload</button>
+      </form>
+      {% if top_colors %}
+        <h2>Top Colors</h2>
+        <div>
+          {% for color, rgb in top_colors %}
+            <div class="color-box" style="background-color: {{ color }};"></div>
+            <div class="color-info">
+              <span>{{ color }}</span>
+              <button onclick="copyToClipboard('{{ color }}')">Copy</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <script>
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+          alert('Copied: ' + text);
+        }, function(err) {
+          console.error('Could not copy text: ', err);
+        });
+      }
+    </script>
+  </body>
+</html>
